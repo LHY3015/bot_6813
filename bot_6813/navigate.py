@@ -51,8 +51,11 @@ class NavigateNode(Node):
             rclpy.spin_once(self)
 
         result = self.navigator.get_result()
+        if result == TaskResult.SUCCEEDED:
+            self.get_logger().info("Navigation completed successfully.")
+        else:
+            self.get_logger().error("Navigation failed.")
         
-
 def main(args=None):
     rclpy.init(args=args)
     node = NavigateNode()
